@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>角色抠图</title>
+    <link rel="stylesheet" href="/assets/matting/style-N4TP222V.css" />
+  <link rel="stylesheet" href="/assets/matting/embed.css?v=framedeck-light-1" /><link rel="stylesheet" href="/assets/icons.css" /><script type="module" src="/assets/matting-icons.js"></script></head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span>角色抠图</span></div>
+        <span class="top-note">为游戏素材而做</span>
+      </header>
+
+      <main class="workspace">
+        <div class="heading">
+          <div>
+            <div class="eyebrow">CHARACTER CUTOUT</div>
+            <h1>从原图，到可用素材。</h1>
+          </div>
+          <div class="actions">
+            <button id="chooseButton" class="primary-button" type="button">选择图片 <span aria-hidden="true">↗</span></button>
+            <button id="recomputeButton" class="quiet-button" type="button" disabled>重新抠图</button>
+            <button id="downloadButton" class="quiet-button" type="button" disabled>下载透明 PNG</button>
+          </div>
+        </div>
+
+        <section id="editToolbar" class="edit-toolbar" aria-label="修补工具" hidden>
+          <div class="tool-group" role="group" aria-label="工具">
+            <button class="tool-icon" type="button" data-tool="move" aria-label="移动" title="移动（空格临时移动）" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M9 6l3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3"/></svg></button>
+            <button class="tool-icon" type="button" data-tool="remove" aria-label="去除画笔" title="去除画笔" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 3 4 4-8 8-4-4zM6 11c-3 0-4 3-3 5-1 2-1 3-1 3 4 1 8-1 8-4M16 18h6"/></svg></button>
+            <button class="tool-icon" type="button" data-tool="restore" aria-label="恢复画笔" title="恢复画笔" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 3 4 4-8 8-4-4zM6 11c-3 0-4 3-3 5-1 2-1 3-1 3 4 1 8-1 8-4M16 18h6M19 15v6"/></svg></button>
+            <button class="tool-icon" type="button" data-tool="wand" aria-label="魔法棒" title="魔法棒" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 19 12-12 3 3L6 22zM12 10l3 3M5 2v5M2.5 4.5h5M18 1v4M16 3h4M21 17v5M18.5 19.5h5"/></svg></button>
+          </div>
+          <div id="brushSettings" class="tool-settings" hidden>
+            <label>大小 <input id="brush-size" aria-label="画笔大小滑条" type="range" min="1" max="512" value="32" /><input id="brush-size-number" aria-label="画笔大小" type="number" min="1" max="512" value="32" /><span>px</span></label>
+            <label>硬度 <input id="brush-hardness" aria-label="画笔硬度滑条" type="range" min="0" max="100" value="75" /><input id="brush-hardness-number" aria-label="画笔硬度" type="number" min="0" max="100" value="75" /><span>%</span></label>
+            <label>强度 <input id="brush-strength" aria-label="画笔强度滑条" type="range" min="1" max="100" value="100" /><input id="brush-strength-number" aria-label="画笔强度" type="number" min="1" max="100" value="100" /><span>%</span></label>
+          </div>
+          <div id="wandSettings" class="tool-settings" hidden>
+            <label>容差 <input id="tolerance" aria-label="魔法棒容差" title="调整容差并自动更新选区" type="range" min="0" max="255" value="24" /><input id="toleranceValue" aria-label="魔法棒容差数值" type="number" min="0" max="255" step="1" value="24" /></label>
+            <label><input id="smoothSelection" type="checkbox" checked />边缘平滑</label>
+            <span class="setting-note">仅选择连通区域</span>
+          </div>
+          <div id="selectionActions" class="selection-actions" hidden>
+            <output id="selectionCount"></output>
+            <button id="selection-remove" class="selection-button" type="button" aria-label="去除选区" title="去除选区">去除选区</button>
+            <button id="selection-restore" class="selection-button" type="button" aria-label="恢复选区" title="恢复选区">恢复选区</button>
+          </div>
+          <button id="cancelSelection" class="selection-button" type="button" aria-label="取消选区" title="取消选区（Esc）" hidden>取消</button>
+          <div class="tool-group history-group" role="group" aria-label="编辑历史">
+            <button id="undoButton" class="tool-icon" type="button" aria-label="撤销" title="撤销（Ctrl+Z）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 4 10l5 5M4 10h9a6 6 0 0 1 6 6v3"/></svg></button>
+            <button id="redoButton" class="tool-icon" type="button" aria-label="重做" title="重做（Ctrl+Shift+Z）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5 5 5-5 5M20 10h-9a6 6 0 0 0-6 6v3"/></svg></button>
+            <button id="resetButton" class="tool-icon" type="button" aria-label="重置修补" title="重置修补（可撤销）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6M4 10a8 8 0 1 1 0 6"/></svg></button>
+            <output id="historyStatus">0步</output>
+          </div>
+        </section>
+
+        <section id="comparison" class="comparison" aria-label="抠图前后对照">
+          <div class="pane source-pane">
+            <span class="pane-label">原图</span>
+            <canvas id="sourceImage" role="img" aria-label="原始图片" hidden></canvas>
+            <canvas class="selection-layer" aria-hidden="true" hidden></canvas>
+            <canvas class="selection-outline" aria-hidden="true" hidden></canvas>
+            <span class="brush-cursor" aria-hidden="true" hidden></span>
+            <div id="sourceEmpty" class="empty-state">
+              <div class="empty-icon" aria-hidden="true">▧</div>
+              <span>把角色图片放在这里</span>
+            </div>
+          </div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="pane result-pane">
+            <span class="pane-label result-label">结果</span>
+            <canvas id="resultImage" role="img" aria-label="透明背景抠图结果" hidden></canvas>
+            <canvas class="selection-layer" aria-hidden="true" hidden></canvas>
+            <canvas class="selection-outline" aria-hidden="true" hidden></canvas>
+            <span class="brush-cursor" aria-hidden="true" hidden></span>
+            <div id="resultEmpty" class="empty-state result-empty">
+              <div class="empty-icon" aria-hidden="true">✳</div>
+              <span>透明素材将显示在这里</span>
+            </div>
+            <div id="working" class="working" hidden><span class="spinner"></span><span>正在抠图…</span></div>
+          </div>
+          <div id="zoomControls" class="zoom-controls" role="group" aria-label="对照图缩放" hidden>
+            <button id="zoomOut" type="button" aria-label="缩小" title="缩小">−</button>
+            <output id="zoomValue" aria-live="off">100%</output>
+            <button id="zoomIn" type="button" aria-label="放大" title="放大">+</button>
+            <span class="zoom-divider" aria-hidden="true"></span>
+            <button id="zoomFit" class="zoom-fit" type="button" title="恢复适合窗口">适合</button>
+            <button id="zoomActual" class="zoom-fit" type="button" title="原图一像素对应一个CSS像素">100%</button>
+          </div>
+        </section>
+
+        <div class="workspace-footer">
+          <p id="message" role="status">支持 PNG、JPG、WebP；选择后自动处理。</p>
+          <div id="backgroundChoices" class="background-choices" hidden aria-label="结果检查背景">
+            <span>检查背景</span>
+            <button class="swatch checker selected" type="button" data-background="checker" aria-label="棋盘格背景" aria-pressed="true"></button>
+            <button class="swatch white" type="button" data-background="white" aria-label="白色背景" aria-pressed="false"></button>
+            <button class="swatch dark" type="button" data-background="dark" aria-label="深色背景" aria-pressed="false"></button>
+            <button class="swatch violet" type="button" data-background="violet" aria-label="紫色背景" aria-pressed="false"></button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+    <script type="module" src="/assets/matting/app-V37DVJIL.js"></script>
+  </body>
+</html>

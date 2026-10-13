@@ -1,0 +1,11 @@
+numpy==1.26.4
+transformers==4.57.6
+huggingface-hub==0.36.2
+timm==1.0.30
+scipy==1.17.1
+kornia==0.8.3
+einops==0.8.2
+pymatting==1.1.16
+numba==0.68.0
+safetensors==0.8.0
+Pillow==11.3.0

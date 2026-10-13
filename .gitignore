@@ -1,0 +1,17 @@
+.venv/
+.runtime/
+.cache/
+node_modules/
+output/
+test-results/
+playwright-report/
+__pycache__/
+*.pyc
+*.log
+.env*
+!.env.example
+model-runtime/.models/*
+!model-runtime/.models/green-edge-refiner/
+model-runtime/.models/green-edge-refiner/*
+!model-runtime/.models/green-edge-refiner/model.safetensors
+!model-runtime/.models/green-edge-refiner/provenance.json

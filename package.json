@@ -1,0 +1,22 @@
+{
+  "name": "frame-deck",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {"node": ">=22.16.0"},
+  "type": "module",
+  "description": "FrameDeck：视频抽帧、帧整理、批量抠图与游戏素材导出",
+  "scripts": {
+    "dev": "node scripts/start.mjs",
+    "start": "node scripts/start.mjs",
+    "setup": "node scripts/setup.mjs --dev",
+    "build:icons": "node scripts/build-icons.mjs",
+    "test": "node --test tests/web/*.test.mjs",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "esbuild": "0.25.12",
+    "lucide-static": "1.52.0"
+  }
+}

@@ -1,0 +1,12 @@
+.with-icon{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.with-icon>svg{width:17px;height:17px;flex:none;stroke-width:1.8;pointer-events:none}
+.brand-mark>svg{width:24px;height:24px}
+.step-button>svg{width:18px;height:18px}
+.film-icon>svg,.frames-icon>svg{width:34px;height:34px;stroke-width:1.4}
+.edit-toolbar .tool-icon.with-icon{flex:0 0 auto;width:auto;min-width:36px;padding:0 9px;gap:5px;font-size:12px;white-space:nowrap}
+.with-icon>span{pointer-events:none;white-space:nowrap}
+.edit-toolbar{min-width:0;flex-wrap:wrap;align-content:center}
+/* 选中工具悬浮时保留深底白字，避免共享悬浮规则盖掉选中背景。 */
+.edit-toolbar button[aria-pressed=true]:hover:not(:disabled){background:#194fc9;color:#fff}
+.with-icon[hidden]{display:none!important}
+@media(max-width:700px){.edit-toolbar .tool-icon.with-icon{padding:0 6px;font-size:11px;gap:3px}.with-icon>svg{width:16px;height:16px}}

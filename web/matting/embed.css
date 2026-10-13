@@ -1,0 +1,38 @@
+body{min-height:100dvh;overflow:hidden}
+.app-shell{min-height:100dvh;height:100dvh;display:flex;flex-direction:column}
+.topbar,.eyebrow,.heading h1,#chooseButton,#recomputeButton{display:none!important}
+.workspace{width:100%;max-width:none;min-height:0;flex:1;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;gap:8px;padding:10px}
+.heading{margin:0;min-height:0;height:0;overflow:hidden}
+.comparison{min-height:0;height:100%;border-width:1px;border-radius:10px;box-shadow:none}
+.pane{min-height:0}
+.pane-label{top:10px;left:10px;padding:5px 8px;font-size:11px}
+.edit-toolbar{margin:0;gap:4px;padding:5px;border-radius:7px;flex-wrap:wrap}
+.workspace-footer{min-height:30px;padding:0 4px}
+.tool-settings{gap:5px}
+/* FrameDeck独立浅色主题；只覆盖外观，不改变精修交互。 */
+:root{color-scheme:light;--accent:#216b58;color:#30453b;background:#eef2ee}
+body,.app-shell,.workspace{background:#eef2ee;color:#30453b}
+.comparison{border-color:#dce5dd;background:#f8faf7;border-radius:10px}
+.source-pane{background:#f8faf7;border-color:#dce5dd}
+.result-pane,.swatch.checker{background:#eef1ec repeating-conic-gradient(#dfe6de 0 25%,#eef1ec 0 50%) 0/20px 20px}
+.result-pane[data-background=dark],.swatch.dark{background:#0b0b0b}
+.result-pane[data-background=white],.swatch.white{background:#fff}
+.pane-label{background:#fffffff0;color:#53685d;font-weight:500;border:1px solid #dce5dd}.result-label{background:#e1eee5;color:var(--accent);border-color:#c8ded0}
+.edit-toolbar{background:#fff;border-color:#dce5dd;border-radius:8px}
+.edit-toolbar button{color:#53685d;border-radius:6px}
+.edit-toolbar button:hover:not(:disabled),.zoom-controls button:hover:not(:disabled){background:#edf3ed;color:var(--accent)}
+.edit-toolbar button[aria-pressed=true]{background:#e1eee5;color:var(--accent)}
+.tool-settings,.history-group{border-color:#dce5dd}.tool-settings label{color:#53685d}
+.tool-settings input[type=range],.tool-settings input[type=checkbox]{accent-color:var(--accent)}
+.tool-settings input[type=number]{background:#fff;border-color:#d3ded5;color:#30453b}
+.setting-note,.history-group output,.workspace-footer{color:#718078}
+.selection-actions{background:#e1eee5;color:var(--accent)}
+.selection-actions .selection-button,.quiet-button{background:#fff;border:1px solid #d3ded5;color:var(--accent)}
+.quiet-button:not(:disabled):hover{border-color:var(--accent);color:var(--accent)}
+.zoom-controls{background:#fffffff2;border-color:#d3ded5;box-shadow:0 3px 14px #30453b12;backdrop-filter:none;border-radius:8px}
+.zoom-controls button,.zoom-controls output{color:#30453b}.zoom-controls .zoom-divider{background:#d3ded5}
+.swatch{border-color:#c5d2c7}.swatch.selected{outline-color:var(--accent)}
+.working{background:#f8faf7e8;color:var(--accent)}.spinner{border-color:#c8ded0;border-top-color:var(--accent)}
+button:focus-visible,input:focus-visible,.comparison.dragging{outline-color:var(--accent)}
+.workspace-footer p.error{color:#a4493b}
+@media(max-width:700px){.workspace{padding:6px;gap:5px}.comparison{grid-template-columns:1fr 1fr}.pane{min-height:0}.pane-label{font-size:9px}}

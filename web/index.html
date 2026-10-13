@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FrameDeck</title><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/icons.css"><script type="module" src="/assets/app.js"></script></head>
+<body>
+<header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="13" height="13" rx="3"/><path d="M16 4H7a3 3 0 0 0-3 3v9"/><path d="m12 11 5 3-5 3z"/></svg></span><span>FrameDeck</span></div><div class="topbar-actions"><span class="local"><i></i> 本机处理</span></div></header>
+<div class="workspace-shell">
+<aside class="workflow-sidebar"><nav id="workflow-steps" role="tablist" aria-label="加工步骤" aria-orientation="vertical"><button id="tab-extract" class="step-button" role="tab" aria-controls="extract-workspace" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16v18H4zM4 8h16M4 16h16M8 3v18M16 3v18"/></svg><span>抽帧</span><span id="extract-complete" class="step-check" aria-label="已有抽帧结果" hidden>✓</span></button><button id="organize" class="step-button" role="tab" aria-controls="organizer-workspace" aria-selected="false" tabindex="-1" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h7v6H3zM14 4h7v6h-7zM3 14h7v6h-7z"/></svg><span>帧处理</span></button></nav></aside>
+<main id="workbench">
+<div id="export-workspace" class="stage-panel" role="tabpanel" aria-labelledby="tab-export" hidden>
+ <div class="workarea export-area">
+  <section class="source-panel export-preview-panel">
+   <div class="section-title"><h2 id="export-preview-title">输出预览</h2><div id="export-viewer-controls"><button id="export-sheet-view" class="text-button" aria-pressed="false" hidden>查看图集</button><span id="export-zoom-label">—</span><button id="export-fit" class="text-button" aria-pressed="true">适配</button><button id="export-100" class="text-button" aria-pressed="false">100%</button></div></div>
+   <div id="export-stage" class="checker"><canvas id="export-canvas" hidden></canvas><span id="export-empty">请先完成当前序列的抠图</span></div>
+   <div class="edit-preview-bottom"><button id="export-prev" class="icon-button" aria-label="导出上一帧">←</button><button id="export-play" class="text-button">播放</button><button id="export-next" class="icon-button" aria-label="导出下一帧">→</button><span id="export-position">—</span></div>
+  </section>
+  <section class="results export-settings-panel">
+   <div class="section-title"><h2>导出设置</h2><button id="export-reset" class="text-button">重置</button></div>
+   <div class="export-settings">
+    <fieldset><legend>输出格式</legend><div class="export-row"><select id="export-format" aria-label="输出类型"><option value="sequence">PNG 序列 + JSON</option><option value="sheet">精灵图集 + JSON</option></select><label id="export-columns-label" hidden>列数 <input id="export-columns" type="number" min="1" max="600" value="4"></label></div></fieldset>
+    <fieldset><legend>输出尺寸</legend><div class="export-row"><select id="export-size" aria-label="单帧尺寸"><option value="original">原尺寸 · 100%</option><option value="half">按比例 · 50%</option><option value="quarter">按比例 · 25%</option><option value="eighth">按比例 · 12.5%</option><option value="64">64 × 64</option><option value="128">128 × 128</option><option value="256">256 × 256</option><option value="512">512 × 512</option><option value="custom">自定义画布</option></select></div><div id="export-custom-size" class="export-row" hidden><label>宽 <input id="export-width" type="number" min="1" max="8192" value="256"></label><label>高 <input id="export-height" type="number" min="1" max="8192" value="256"></label></div><div id="export-geometry" class="export-metrics">—</div></fieldset>
+    <fieldset><legend>动作与文件</legend><div class="export-row"><label>动作帧率 <input id="export-fps" type="number" min="1" max="60" step="1" value="12" aria-label="动作帧率" title="用于播放预览，并写入导出JSON">帧/秒</label></div><div class="export-row"><label class="export-name">文件名 <input id="export-name" value="animation" maxlength="80"></label></div><span class="matting-subtle">PNG 与 JSON 一起打包为 ZIP</span></fieldset>
+    <details id="export-advanced"><summary>高级设置</summary>
+    <fieldset><legend>统一裁剪</legend><div class="export-row"><label><input id="export-crop-enabled" type="checkbox">去除透明空白</label><label>边距 <input id="export-padding" type="number" min="0" max="512" value="8"></label><button id="export-auto" class="text-button">自动范围</button><button id="export-box-mode" class="text-button">框选裁剪</button></div>
+     <div class="export-row export-coordinates"><label>X <input id="export-x" type="number" min="0" value="0"></label><label>Y <input id="export-y" type="number" min="0" value="0"></label><label>宽 <input id="export-cw" type="number" min="1" value="1"></label><label>高 <input id="export-ch" type="number" min="1" value="1"></label></div><span id="export-crop-warning" class="export-warning"></span>
+    </fieldset>
+    <fieldset><legend>缩放方式</legend><div class="export-row"><label><input id="export-upscale" type="checkbox">允许放大</label><select id="export-filter" aria-label="缩放方式"><option value="smooth">平滑缩放</option><option value="pixel">像素缩放</option></select><span class="matting-subtle">等比例 · 透明填充</span></div></fieldset>
+    </details>
+   </div>
+  </section>
+ </div>
+ <div class="parameters export-bottom"><span id="export-summary">—</span><button id="export-download" class="button primary bottom-export" disabled>导出</button></div>
+ <footer><span id="export-status" aria-live="polite">等待透明帧</span><span id="export-error" role="alert"></span></footer>
+</div>
+<div id="extract-workspace" class="stage-panel" role="tabpanel" aria-labelledby="tab-extract">
+ <div class="workarea">
+ <section class="source-panel">
+  <div class="section-title"><h1 id="source-title">原视频</h1><div class="result-actions"><button id="open" class="text-button">选择视频</button><input id="file" type="file" accept=".mp4,.mov,.webm" hidden></div></div>
+  <div class="video-stage" id="dropzone">
+   <video id="video" controls preload="metadata" hidden></video>
+   <button id="empty" class="empty"><span class="film-icon">▤</span><strong>拖入视频，开始提取</strong><span>MP4 · MOV · WebM</span></button>
+   <div id="importing" class="importing" hidden><span class="spinner"></span><span>导入与探测中</span></div>
+  </div>
+  <div class="source-meta"><span id="filename">未选择视频</span><span id="metadata">—</span></div>
+ </section>
+ <section id="results" class="results">
+  <div class="section-title"><div class="results-title"><h2>帧列表</h2><span id="result-meta">尚未提取</span></div><button id="play" class="text-button" disabled>▷ 播放帧</button></div>
+  <p id="result-note" class="result-note" hidden></p>
+  <div id="frames-scroll" class="frames-stage" tabindex="0" role="region" aria-label="序列帧缩略图"><div id="result-empty" class="result-empty"><span class="frames-icon" aria-hidden="true">▥</span><strong>序列帧将在这里显示</strong></div><div id="grid" class="frame-grid" hidden></div></div>
+ </section>
+ </div>
+ <div class="parameters" aria-label="抽帧设置">
+   <div class="timeline"><label>开始 <input id="start" type="number" min="0" step="0.001" value="0" disabled><span>秒</span></label><div id="range" class="range-control"><div class="range-track"><div id="range-fill"></div></div><input id="range-start" type="range" min="0" max="1" step="0.001" value="0" aria-label="范围开始" disabled><input id="range-end" type="range" min="0" max="1" step="0.001" value="1" aria-label="范围结束" disabled></div><label>结束 <input id="end" type="number" min="0" step="0.001" value="0" disabled><span>秒</span></label></div>
+   <label>采样 <input id="fps" type="number" min="1" max="60" step="1" value="12" list="fps-list" disabled><span>帧/秒</span></label><datalist id="fps-list"><option value="10"><option value="12"><option value="15"><option value="24"><option value="30"></datalist>
+   <span id="estimate" class="estimate">预计 — 帧</span><button id="extract" class="button primary" disabled>提取序列帧 <span>→</span></button>
+  </div>
+ <footer><div class="status-line" aria-live="polite"><span id="status">等待导入</span><span id="error" role="alert"></span><button id="cancel" class="text-button" hidden>取消任务</button></div><span class="footer-note">不抠图 · 不补帧 · 不去重</span><progress id="progress" max="100" value="0" hidden></progress></footer>
+</div>
+<div id="process-mode" class="process-mode" role="group" aria-label="帧处理方式" hidden><button id="process-organize" type="button" aria-pressed="true">整理帧</button><button id="tab-matting" type="button" aria-pressed="false">抠图与精修</button><span id="process-source">当前抽帧结果</span></div>
+<div id="organizer-workspace" class="stage-panel" role="tabpanel" aria-labelledby="organize" hidden>
+ <div class="workarea">
+  <section class="source-panel edit-preview-panel">
+   <div class="section-title"><h1>帧检查</h1><div class="edit-zoom-controls"><button id="edit-zoom-out" class="icon-button" title="缩小" aria-label="整理预览缩小">−</button><button id="edit-fit" class="text-button">适应</button><button id="edit-100" class="text-button">100%</button><button id="edit-zoom-in" class="icon-button" title="放大" aria-label="整理预览放大">＋</button></div></div>
+   <div id="edit-viewport"><img id="edit-image" alt="整理帧原尺寸预览" draggable="false" hidden><span id="edit-empty">当前序列没有帧，可撤销或重置</span></div>
+   <div class="edit-preview-bottom"><button id="edit-previous" class="icon-button" title="上一帧" aria-label="整理上一帧">←</button><button id="edit-play" class="text-button" title="先勾选要播放的帧" aria-label="播放勾选帧">▷ 播放</button><label class="playback-rate" title="播放速度；仅影响预览"><input id="edit-play-fps" type="number" min="1" max="60" step="1" value="12" required aria-label="整理播放帧率">帧/秒</label><button id="edit-next" class="icon-button" title="下一帧" aria-label="整理下一帧">→</button><span id="edit-frame-label"></span><span id="edit-zoom-label"></span></div>
+  </section>
+  <section class="results">
+   <div class="section-title"><div class="results-title"><h2>帧列表</h2><span id="edit-meta"></span></div></div>
+   <div id="edit-scroll" class="frames-stage" tabindex="0" role="region" aria-label="整理帧缩略图"><div id="edit-grid" class="frame-grid"></div></div>
+  </section>
+ </div>
+ <div class="edit-toolbar" aria-label="整理工具">
+  <button id="edit-all" class="button secondary" title="全部勾选 Ctrl+A">全选</button><button id="edit-none" class="button secondary">取消勾选</button>
+  <button id="edit-find-loop" class="button secondary" title="分析全部保留帧，推荐动作循环区间">↻ 寻找循环</button>
+  <span class="separator"></span><button id="edit-delete" class="button secondary danger" title="删除勾选帧 Delete">删除</button>
+  <span class="separator"></span><button id="edit-undo" class="button secondary" title="撤销 Ctrl+Z">↶ 撤销</button><button id="edit-redo" class="button secondary" title="恢复刚才撤销的操作 Ctrl+Shift+Z / Ctrl+Y">↷ 恢复</button><button id="edit-reset" class="button secondary">重置</button>
+ </div>
+ <footer><div class="status-line" aria-live="polite"><span id="edit-selection"></span><span id="edit-status"></span><span id="edit-error" role="alert"></span></div></footer>
+</div>
+<div id="matting-workspace" class="stage-panel" role="region" aria-label="抠图与精修" hidden>
+ <div class="workarea">
+  <section class="source-panel matting-preview-panel"><div class="section-title"><h1>当前帧</h1><span id="matting-frame-label" class="matting-subtle">—</span></div><div class="matting-preview checker"><img id="matting-image" alt="当前帧预览" hidden><span id="matting-empty">选择一帧查看</span></div><div class="matting-preview-bottom"><button id="matting-prev" class="icon-button" aria-label="上一帧" disabled>←</button><button id="matting-play" class="button secondary" disabled>▷ 播放</button><input id="matting-fps" type="number" min="1" max="60" step="1" value="12" aria-label="透明序列播放速度"><span class="matting-subtle">帧/秒</span><button id="matting-next" class="icon-button" aria-label="下一帧" disabled>→</button></div></section>
+  <section class="results"><div class="section-title"><div class="results-title"><h2>当前帧序列</h2><span id="matting-meta" class="matting-subtle">尚未开始</span></div></div><div id="matting-scroll" class="frames-stage" tabindex="0" role="region" aria-label="帧抠图列表"><div id="matting-grid" class="frame-grid"></div></div></section>
+ </div>
+ <div class="parameters matting-actions"><button id="matting-start" class="button primary">批量抠图 →</button><button id="matting-cancel" class="button secondary" hidden>取消任务</button><span id="matting-progress-label" class="matting-subtle"></span><progress id="matting-progress" max="100" value="0" hidden></progress></div>
+ <footer><progress id="model-download-progress" max="100" aria-label="当前模型文件下载进度" hidden></progress><div class="status-line" aria-live="polite"><span id="matting-status">等待抽帧结果</span><span id="matting-error" role="alert"></span></div></footer>
+</div>
+</main>
+</div>
+<dialog id="repair-dialog" aria-labelledby="repair-title"><div class="repair-header"><span id="repair-title">精修当前帧</span><button id="repair-close" class="icon-button" aria-label="关闭精修">×</button></div><iframe id="repair-frame" title="当前帧双侧精修" src="about:blank"></iframe></dialog>
+<dialog id="viewer" aria-label="序列帧预览"><div class="viewer-toolbar"><span id="viewer-title"></span><div><button id="zoom-out" class="icon-button" aria-label="缩小">−</button><button id="zoom-fit" class="text-button">适应</button><button id="zoom-100" class="text-button">100%</button><button id="zoom-in" class="icon-button" aria-label="放大">＋</button><button id="close-viewer" class="icon-button" aria-label="关闭帧预览" title="关闭 Esc" autofocus>×</button></div></div><div id="viewport"><img id="full-image" alt="序列帧原尺寸预览" draggable="false"></div><div class="viewer-bottom"><button id="previous" class="icon-button" aria-label="上一帧">←</button><button id="viewer-play" class="text-button">▷ 播放</button><label class="playback-rate" title="播放速度；仅影响预览"><input id="viewer-play-fps" type="number" min="1" max="60" step="1" value="12" required aria-label="原尺寸播放帧率">帧/秒</label><button id="next" class="icon-button" aria-label="下一帧">→</button><span id="zoom-label"></span></div></dialog>
+<dialog id="loop-dialog" aria-labelledby="loop-title">
+ <div class="loop-header"><h2 id="loop-title">寻找动作循环</h2><button id="loop-close" class="icon-button" aria-label="关闭循环预览">×</button></div>
+ <div id="loop-state" class="loop-state" role="status" aria-live="polite"></div>
+ <div class="loop-body">
+  <div id="loop-list" class="loop-list" role="group" aria-label="循环候选"></div>
+  <div class="loop-preview">
+   <div id="loop-stage" hidden><img id="loop-image" alt="循环候选原尺寸预览"></div>
+   <div id="loop-preview-controls" hidden><button id="loop-previous" class="icon-button" aria-label="循环上一帧">←</button><button id="loop-play" class="text-button">▷ 播放</button><label class="playback-rate"><input id="loop-fps" type="number" min="1" max="60" step="1" required value="12" aria-label="循环播放帧率">帧/秒</label><button id="loop-next" class="icon-button" aria-label="循环下一帧">→</button><span id="loop-position"></span><span id="loop-original"></span></div>
+  </div>
+ </div>
+ <div class="loop-footer"><button id="loop-cancel" class="button secondary">取消</button><button id="loop-apply" class="button primary" disabled>只保留这个循环</button></div>
+</dialog>
+</body></html>

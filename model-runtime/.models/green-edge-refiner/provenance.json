@@ -1,0 +1,11 @@
+{
+  "sha256": "b4916139bdba814992c0fa984fe645c76d9f02578b7e502b541210ec262fe30b",
+  "parameters": 94049,
+  "training": "random initialization; 112 public train images",
+  "data_license": "CC-BY-4.0",
+  "data_authors": "Matteo Muratori, Joel Seytre, Gabriel Aubourg",
+  "data_source": "https://huggingface.co/datasets/joelseytre/toonout/tree/618b9f37901951b0287482f028912be43c98bca0",
+  "scope": "uniform bright green, unknown existing soft alpha only; confidence direction guards",
+  "quality_report": "D:\\learn_code\\game\\game-art-matting\\output\\green-patch-live-guard-soft-uniform-color-independent\\report.json",
+  "commercial_quality_achieved": false
+}
