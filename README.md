@@ -2,9 +2,23 @@
 
 视频抽帧 → 循环检测与帧整理 → 批量抠图与精修 → PNG、ZIP与图集导出。
 
-直接抽取既有单动作工具，不重做界面或算法；动作工坊与MotionDeck代码不改，原数据不迁移。本工具不带工作流画布、角色项目页或3D动作库。
+直接抽取既有单动作工具，保留原界面与本机算法；无模型浏览器版的纯色去背复用EazyCut方案。动作工坊与MotionDeck代码不改，原数据不迁移。本工具不带工作流画布、角色项目页或3D动作库。
 
-## 启动
+## 无模型浏览器版
+
+[在线使用（GitHub Pages）](https://mhdfy1988.github.io/frame-deck/) · [部署状态](https://github.com/mhdfy1988/frame-deck/actions/workflows/pages.yml)
+
+与本机完整版放在同一仓库，源码在`browser/`，不替换下方8902入口。支持视频抽帧、PNG序列导入、帧播放与整理、循环检测、EazyCut纯色去背、手工精修，以及PNG序列／精灵图ZIP导出。没有AI模型或服务端接口，文件在浏览器本地处理。
+
+```powershell
+npm.cmd ci
+npm.cmd run build:browser
+npm.cmd run preview:browser
+```
+
+打开 http://127.0.0.1:8904/frame-deck/ 。这只是独立静态预览，不启动Python、FFmpeg本机进程或模型；首次抽帧加载约32MB的浏览器解码器。源码、容量限制、与本机版的差异及验收命令见[浏览器版说明](browser/README.md)。`main`推送触发Pages构建与部署，只上传`output/browser-site/frame-deck/`的白名单产物及第三方许可／源码归档，不上传整个仓库或私人素材。是否部署成功以对应Actions任务及线上验收为准。
+
+## 本机完整版启动
 
 Windows需已安装Node.js 22.16或更新版本、Python 3.12（py启动器）及FFmpeg/ffprobe，并可从命令行调用。
 

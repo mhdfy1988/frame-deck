@@ -1,0 +1,41 @@
+FrameDeck browser edition. Public build/source index: ./index.html
+
+FrameDeck authored source: MIT. The MIT license at the site root does not
+relicense third-party libraries, FFmpeg WebAssembly, or their codecs.
+
+EazyCut keying source: MIT, copyright 2026 EazyCut contributors.
+Snapshot: 6d75c86d4c123f3ae2fbb4f5742bb99f61f6f93b
+https://github.com/mhdfy1988/EazyCut
+Adaptations: FrameDeck pixel budget and connected-option type validation.
+See eazycut-MIT.txt.
+
+culori 4.0.2: MIT, copyright 2018 Dan Burzo. See culori.txt.
+https://github.com/Evercoder/culori
+
+@ffmpeg/ffmpeg 0.12.15: MIT, copyright Jerome Wu.
+https://www.npmjs.com/package/@ffmpeg/ffmpeg/v/0.12.15
+https://github.com/ffmpegwasm/ffmpeg.wasm/tree/main/packages/ffmpeg
+
+@ffmpeg/core 0.12.10: GPL-2.0-or-later according to its package metadata.
+The core JS/WASM files are copied unchanged from the locked npm package.
+https://www.npmjs.com/package/@ffmpeg/core/v/0.12.10
+Upstream core release and corresponding source/build materials:
+https://github.com/ffmpegwasm/ffmpeg.wasm/releases/tag/v12.15
+https://github.com/ffmpegwasm/ffmpeg.wasm/tree/71aa99d37c02a7b4c435275ca9ef50e612f6efa1
+FFmpeg and its external libraries retain their respective licenses:
+https://ffmpegwasm.netlify.app/docs/faq/#what-is-the-license-of-ffmpegwasm
+Source archives including original licenses, build scripts and the external
+libraries listed by the upstream Dockerfile are provided at ./index.html.
+Emscripten 3.1.40 and its SDL2 release-2.24.2 port sources are included.
+The official binary is copied unchanged; bit-identical rebuilding is not claimed.
+
+fflate 0.8.3: MIT, copyright Arjun Barrett. See fflate.txt.
+https://github.com/101arrowz/fflate
+
+Lucide icons: ISC. See lucide.txt.
+https://lucide.dev/license
+
+The existing repair editor retains its embedded third-party notices;
+its original provenance is recorded in THIRD_PARTY_NOTICES.md in the repository.
+Only the browser-generated transport, embedded path and font-loading setup
+are adapted; pixel algorithms are unchanged.

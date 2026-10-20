@@ -1,0 +1,116 @@
+[
+  {
+    "name": "ffmpeg-wasm",
+    "repo": "ffmpegwasm/ffmpeg.wasm",
+    "ref": "71aa99d37c02a7b4c435275ca9ef50e612f6efa1",
+    "sha256": "53c5842f160cece0e39345876f9483b56aa84b966637ff6f624353a0fa884219"
+  },
+  {
+    "name": "ffmpeg",
+    "repo": "FFmpeg/FFmpeg",
+    "ref": "n5.1.4",
+    "sha256": "6ed8ba17d513955cd9a03d0d87195b8eac3d148dcb61ef30ebddf1a3cd718de8"
+  },
+  {
+    "name": "x264",
+    "repo": "ffmpegwasm/x264",
+    "ref": "33cac6b77d5b9259c552156013a817ab23119612",
+    "sha256": "75434a5a1f2d7d4314821c6054dd300731d69e2fa73314ba4a5ec9df38d4ec80"
+  },
+  {
+    "name": "x265",
+    "repo": "ffmpegwasm/x265",
+    "ref": "3.4",
+    "sha256": "abd37f4ab99570fcf2272c47239653204b0854ea5ef19df3729112aaa1f6f311"
+  },
+  {
+    "name": "libvpx",
+    "repo": "ffmpegwasm/libvpx",
+    "ref": "v1.13.1",
+    "sha256": "00dae80465567272abd077f59355f95ac91d7809a2d3006f9ace2637dd429d14"
+  },
+  {
+    "name": "lame",
+    "repo": "ffmpegwasm/lame",
+    "ref": "2badea1974ae36cb8312afe99cff1e6b3b5decee",
+    "sha256": "0d97ba0776988f5730e0ce1fa936e7c5d6836c757993ba55073513fe89cf410a"
+  },
+  {
+    "name": "ogg",
+    "repo": "ffmpegwasm/Ogg",
+    "ref": "v1.3.4",
+    "sha256": "17e130f823c497ae6be169838389b502a2e8789bad208bb6e39db4618f1f4ece"
+  },
+  {
+    "name": "theora",
+    "repo": "ffmpegwasm/theora",
+    "ref": "v1.1.1",
+    "sha256": "1d5c3b25bbced448f3e741c42df6796e3d5e57136a74bcd68262318290ec2982"
+  },
+  {
+    "name": "opus",
+    "repo": "ffmpegwasm/opus",
+    "ref": "v1.3.1",
+    "sha256": "4834a8944c33a7ecab5cad9454eeabe4680ca1842cb8f5a2437572dbf636de8f"
+  },
+  {
+    "name": "vorbis",
+    "repo": "ffmpegwasm/vorbis",
+    "ref": "v1.3.3",
+    "sha256": "3dbb847196087dfabc54f24930191ff50f19868f34458c0f5d6f9789eeb675ff"
+  },
+  {
+    "name": "zlib",
+    "repo": "ffmpegwasm/zlib",
+    "ref": "v1.2.11",
+    "sha256": "629380c90a77b964d896ed37163f5c3a34f6e6d897311f1df2a7016355c45eff"
+  },
+  {
+    "name": "libwebp",
+    "repo": "ffmpegwasm/libwebp",
+    "ref": "v1.3.2",
+    "sha256": "c2c2f521fa468e3c5949ab698c2da410f5dce1c5e99f5ad9e70e0e8446b86505"
+  },
+  {
+    "name": "freetype",
+    "repo": "ffmpegwasm/freetype2",
+    "ref": "VER-2-10-4",
+    "sha256": "b1708021058e573847bcf626f81eac02e4fe47a093a98260c1c73c6492b14db0"
+  },
+  {
+    "name": "fribidi",
+    "repo": "fribidi/fribidi",
+    "ref": "v1.0.9",
+    "sha256": "ef6f940d04213a0fb91a0177b2b57df2031bf3a7e2cd0ee2c6877a160fc206df"
+  },
+  {
+    "name": "harfbuzz",
+    "repo": "harfbuzz/harfbuzz",
+    "ref": "5.2.0",
+    "sha256": "a9fd9869efeec4cd6ab34527ed1e82df65be39cbfdb750d02dfa66148eac4c04"
+  },
+  {
+    "name": "libass",
+    "repo": "libass/libass",
+    "ref": "0.15.0",
+    "sha256": "232b1339c633e6a93c153cac7a483e536944921605f35fcbaedc661c62fb49ec"
+  },
+  {
+    "name": "zimg",
+    "repo": "sekrit-twc/zimg",
+    "ref": "release-3.0.5",
+    "sha256": "a9a0226bf85e0d83c41a8ebe4e3e690e1348682f6a2a7838f1b8cbff1b799bcf"
+  },
+  {
+    "name": "emscripten",
+    "repo": "emscripten-core/emscripten",
+    "ref": "3.1.40",
+    "sha256": "eb74cea5feb8881c28e9bb5a6798e7f4e59686e60d8a1bac39e9063a451210e5"
+  },
+  {
+    "name": "sdl2",
+    "repo": "libsdl-org/SDL",
+    "ref": "release-2.24.2",
+    "sha256": "be08ca66d11b1743996cb69a9b6c44771e16084a2dbcb4b61e52d9ac4983f4fc"
+  }
+]

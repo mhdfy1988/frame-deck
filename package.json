@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "engines": {"node": ">=22.16.0"},
+  "engines": {
+    "node": ">=22.16.0"
+  },
   "type": "module",
   "description": "FrameDeck：视频抽帧、帧整理、批量抠图与游戏素材导出",
   "scripts": {
@@ -11,12 +13,24 @@
     "start": "node scripts/start.mjs",
     "setup": "node scripts/setup.mjs --dev",
     "build:icons": "node scripts/build-icons.mjs",
+    "build:browser": "node scripts/build-browser.mjs",
+    "preview:browser": "node scripts/preview-browser.mjs",
+    "test:browser-static": "node tests/browser-static.mjs",
+    "format:browser": "prettier --write \"browser/**/*.js\" \"browser/**/*.css\" scripts/browser-template.mjs scripts/build-browser.mjs scripts/prepare-browser-sources.mjs scripts/preview-browser.mjs tests/browser-static.mjs \"tests/web/browser-*.test.mjs\"",
+    "check:browser-format": "prettier --check \"browser/**/*.js\" \"browser/**/*.css\" scripts/browser-template.mjs scripts/build-browser.mjs scripts/prepare-browser-sources.mjs scripts/preview-browser.mjs tests/browser-static.mjs \"tests/web/browser-*.test.mjs\"",
     "test": "node --test tests/web/*.test.mjs",
     "test:e2e": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
     "esbuild": "0.25.12",
-    "lucide-static": "1.52.0"
+    "lucide-static": "1.52.0",
+    "prettier": "3.9.10"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "0.12.10",
+    "@ffmpeg/ffmpeg": "0.12.15",
+    "culori": "4.0.2",
+    "fflate": "0.8.3"
   }
 }
