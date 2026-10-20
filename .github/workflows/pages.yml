@@ -4,7 +4,9 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/pages.yml'
-      - 'browser/**'
+      - 'browser/**/*.js'
+      - 'browser/**/*.css'
+      - 'browser/licenses/**'
       - 'web/**'
       - 'scripts/*browser*.mjs'
       - 'package*.json'

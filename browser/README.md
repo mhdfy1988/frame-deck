@@ -25,7 +25,7 @@ npm.cmd run build:browser
 npm.cmd run preview:browser
 ```
 
-预览为 http://127.0.0.1:8904/frame-deck/ ，不依赖8902。线上入口为 https://mhdfy1988.github.io/frame-deck/ 。`output/browser-site/frame-deck/`才是Pages上传目录；测试和预览的外层目录不应一起上传。`.github/workflows/pages.yml`在`main`推送或手动触发后检查、构建并部署；不创建Tag或GitHub Release。
+预览为 http://127.0.0.1:8904/frame-deck/ ，不依赖8902。线上入口为 https://mhdfy1988.github.io/frame-deck/ 。`output/browser-site/frame-deck/`才是Pages上传目录；测试和预览的外层目录不应一起上传。`.github/workflows/pages.yml`在`main`的浏览器构建输入发生变更或手动触发后检查、构建并部署；仅文档变更不重复部署，不创建Tag或GitHub Release。
 
 发布构建先运行`node scripts/prepare-browser-sources.mjs`，下载清单锁定的19份第三方源码归档并核对SHA-256；再设置`FRAMEDECK_RELEASE=1`构建，缺失或哈希不符会失败。归档只供用户按需下载，不由应用执行或自动加载；站点页脚可打开“许可与源码”。`build-info.json`记录版本、CI提交及文件哈希。原本机版仍按原命令启动，不受Pages部署影响。
 
@@ -37,6 +37,8 @@ npm.cmd run test:browser-static
 ```
 
 静态测试自己启动临时端口，运行真实Chrome和WASM、生成合成素材并回读下载ZIP／PNG；不需要8904预览或Python服务。本机FFmpeg仅用于测试时制作输入视频，不参与网页实际处理；需可从命令行调用。输出位于忽略的`output/pages-evidence/`。
+
+线上验收可在独立终端设置`$env:FRAMEDECK_TEST_URL='https://mhdfy1988.github.io/frame-deck/'`后运行同一静态测试；其界面、WASM与运行资源取自线上，参考算法仅在测试浏览器内拦截提供，不部署测试入口。测试不会改用户页面或上传输入素材。另核对线上`build-info.json`的提交及实际下载资源哈希。
 
 ## 容量与差异
 

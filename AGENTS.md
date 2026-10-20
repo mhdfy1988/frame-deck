@@ -7,7 +7,7 @@
 
 - “无模型／静态版”属于运行环境适配，不授权界面改版。浏览器构建直接复用web/index.html、web/style.css和原图标；保留步骤导航、原四屏、选择／播放／整理与整屏导出。只在browser-template.mjs显式适配必要能力差异，禁止另造简化页面或保留旧新两套布局fallback。界面验收同时覆盖四屏和实际操作，不能只凭算法、下载或空状态通过宣称原界面已保持。
 
-- 无模型浏览器版源码在browser/，本机web/、app/及model-runtime/保持原链路。复用web/core.js、organizer-core.js、loop-core.js与原精修Worker，不复制算法；browser/session.js拥有图片与修订。适配已构建精修器只在build-browser.mjs生成物中进行，定向替换必须唯一命中，不写回原文件、不覆盖全局fetch。新增构建输出只允许白名单文件，禁止上传源码、模型、用户素材或缓存。静态测试使用独立临时子路径；手工预览8904，不替代8902/8903。浏览器版不声称本机精确PTS、Pillow采样和大容量的完全等价；发布前单独核对FFmpeg核心及外部库许可，MIT不覆盖第三方WASM。
+- 无模型浏览器版源码在browser/，本机web/、app/及model-runtime/保持原链路。复用web/core.js、organizer-core.js、loop-core.js与原精修Worker，不复制算法；browser/session.js拥有图片与修订。适配已构建精修器只在build-browser.mjs生成物中进行，定向替换必须唯一命中，不写回原文件、不覆盖全局fetch。新增构建输出只允许白名单文件，禁止上传项目源码、模型、用户素材或缓存；许可交付所需的锁定第三方源码归档仅允许进入licenses/sources白名单。静态测试使用独立临时子路径；手工预览8904，不替代8902/8903。浏览器版不声称本机精确PTS、Pillow采样和大容量的完全等价；发布前单独核对FFmpeg核心及外部库许可，MIT不覆盖第三方WASM。
 
 - 根目录D:\learn_code\game\frame-deck。动作工坊、MotionDeck及game-art-matting不得随本项目修改；不借用其node_modules、虚拟环境、数据或服务。
 - 保留抽取的算法与交互，不重新实现抽帧、魔法棒、精修或导出。不恢复角色项目或节点画布，不加空入口。

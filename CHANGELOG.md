@@ -35,4 +35,4 @@
 0.1.0为源码／网页版本；不提供桌面安装包，不创建版本标签或GitHub Release。
 
 [Unreleased]: https://github.com/mhdfy1988/frame-deck/commits/main/
-[0.1.0]: https://mhdfy1988.github.io/frame-deck/build-info.json
+[0.1.0]: https://github.com/mhdfy1988/frame-deck/tree/82b5e9024258fc628f7a7161461795643450ee4c
