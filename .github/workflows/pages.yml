@@ -2,6 +2,15 @@ name: Browser Pages
 on:
   push:
     branches: [main]
+    paths:
+      - '.github/workflows/pages.yml'
+      - 'browser/**'
+      - 'web/**'
+      - 'scripts/*browser*.mjs'
+      - 'package*.json'
+      - 'LICENSE'
+      - 'tests/browser-static.mjs'
+      - 'tests/web/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -10,10 +19,10 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: '22'
           cache: npm
@@ -24,13 +33,13 @@ jobs:
       - run: npm run build:browser
         env:
           FRAMEDECK_RELEASE: '1'
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/configure-pages@v6.0.0
+      - uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: output/browser-site/frame-deck
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write
@@ -38,5 +47,5 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/deploy-pages@v4
+      - uses: actions/deploy-pages@v5.0.1
         id: deployment

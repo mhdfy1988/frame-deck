@@ -27,7 +27,7 @@ try {
     requests = [];
   page.on("pageerror", (e) => errors.push(e.message));
   page.on("console", (m) => {
-    if (m.type() === "error") errors.push(m.text());
+    if (m.type() === "error") errors.push(`${m.text()} (${m.location().url})`);
   });
   page.on("request", (request) => {
     const url = request.url();
@@ -39,6 +39,10 @@ try {
   });
   page.on("dialog", (d) => d.accept());
   await page.goto(baseUrl);
+  assert.equal(
+    await page.locator('link[rel="icon"]').getAttribute("href"),
+    "./favicon.svg",
+  );
   assert.equal(await page.locator(".workflow-sidebar").count(), 1);
   assert.equal(
     await page.locator("#extract-workspace .workarea>.source-panel").count(),

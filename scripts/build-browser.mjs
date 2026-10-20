@@ -10,6 +10,7 @@ import {
 import { resolve, join } from "node:path";
 import { createHash } from "node:crypto";
 import { browserTemplate } from "./browser-template.mjs";
+import { icons } from "../web/icons-data.js";
 
 const root = resolve(import.meta.dirname, ".."),
   out = resolve(root, "output/browser-site/frame-deck");
@@ -56,6 +57,10 @@ await writeFile(join(out, "app.js"), app);
 await writeFile(
   join(out, "index.html"),
   browserTemplate(await readFile(join(root, "web/index.html"), "utf8")),
+);
+await writeFile(
+  join(out, "favicon.svg"),
+  icons.layers.replace('stroke="currentColor"', 'stroke="#246f5b"'),
 );
 await writeFile(
   join(out, "app.css"),
@@ -115,7 +120,7 @@ let html = await readFile(join(root, "web/matting/repair.html"), "utf8");
 html = html.replaceAll("/assets/matting/", "./").replaceAll("/assets/", "../");
 html = html.replace(
   "<head>",
-  "<head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; worker-src 'self'; object-src 'none'\">",
+  "<head><link rel=\"icon\" type=\"image/svg+xml\" href=\"../favicon.svg\"><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'none'; worker-src 'self'; object-src 'none'\">",
 );
 await writeFile(join(out, "repair/repair.html"), html);
 for (const name of ["worker-4EQHDEQU.js", "embed.css"])
@@ -184,10 +189,11 @@ for (const entry of sourceManifest) {
 }
 await writeFile(
   join(out, "licenses/index.html"),
-  `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>FrameDeck 第三方许可与源码</title><h1>第三方许可与源码</h1><p>自有代码MIT不改变第三方许可。FFmpeg核心按GPL-2.0-or-later分发；以下归档保留原许可证，构建材料在ffmpeg-wasm源码中的Dockerfile、build/、src/，FFMPEG_ST=1，Emscripten 3.1.40。我们复制官方core 0.12.10二进制，未修改或声称可逐字节重建。</p><p><a href="FFMPEG-GPL-2.0.txt">GPL全文</a> · <a href="SOURCES.txt">版本和来源</a> · <a href="https://github.com/mhdfy1988/frame-deck">FrameDeck完整源码及通知</a></p><ul>${sourceRows.join("")}</ul></html>`,
+  `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="../favicon.svg"><title>FrameDeck 第三方许可与源码</title><h1>第三方许可与源码</h1><p>自有代码MIT不改变第三方许可。FFmpeg核心按GPL-2.0-or-later分发；以下归档保留原许可证，构建材料在ffmpeg-wasm源码中的Dockerfile、build/、src/，FFMPEG_ST=1，Emscripten 3.1.40。我们复制官方core 0.12.10二进制，未修改或声称可逐字节重建。</p><p><a href="FFMPEG-GPL-2.0.txt">GPL全文</a> · <a href="SOURCES.txt">版本和来源</a> · <a href="https://github.com/mhdfy1988/frame-deck">FrameDeck完整源码及通知</a></p><ul>${sourceRows.join("")}</ul></html>`,
 );
 const allowed = new Set([
   "index.html",
+  "favicon.svg",
   "app.js",
   "app.css",
   "pixel-worker.js",

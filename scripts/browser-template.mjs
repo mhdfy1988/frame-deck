@@ -11,6 +11,10 @@ export function browserTemplate(source) {
   replace('href="/assets/icons.css"', 'href="./icons.css"');
   replace('src="/assets/app.js"', 'src="./app.js"');
   replace(
+    "<title>FrameDeck</title>",
+    '<title>FrameDeck</title><link rel="icon" type="image/svg+xml" href="./favicon.svg">',
+  );
+  replace(
     "<head>",
     "<head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'self' blob:; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'\">",
   );
